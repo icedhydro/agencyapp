@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\ServiceAdminController;
 use App\Http\Controllers\Admin\ContactAdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;

@@ -62,6 +62,14 @@ watch(
                                 >
                                     Zprávy
                                 </NavLink>
+                                <NavLink
+                                    :href="route('admin.services.index')"
+                                    :active="
+                                        route().current('admin.services.index')
+                                    "
+                                >
+                                    Služby
+                                </NavLink>
                             </div>
                         </div>
 
@@ -174,6 +182,12 @@ watch(
                             :active="route().current('admin.contacts.index')"
                         >
                             Zprávay
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('admin.services.index')"
+                            :active="route().current('admin.services.index')"
+                        >
+                            Služby
                         </ResponsiveNavLink>
                     </div>
 

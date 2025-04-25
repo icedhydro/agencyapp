@@ -44,8 +44,8 @@ const deleteContact = (id) => {
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white">
-                        <!-- SEARCH FORM -->
-                        <div class="flex items-center gap-2 mb-6">
+                        <!-- Search -->
+                        <div class="flex items-center justify-end gap-2 mb-6">
                             <Input
                                 v-model="search"
                                 type="text"
@@ -57,7 +57,7 @@ const deleteContact = (id) => {
                             </PrimaryButton>
                         </div>
 
-                        <!-- CONTACTS TABLE -->
+                        <!-- Contacts table -->
                         <div
                             v-if="contacts.data.length === 0"
                             class="text-gray-600"
@@ -127,7 +127,7 @@ const deleteContact = (id) => {
                                 </tbody>
                             </table>
 
-                            <!-- PAGINATION -->
+                            <!-- Pagination -->
                             <div class="flex justify-center mt-6 space-x-2">
                                 <template
                                     v-for="(link, index) in contacts.links"
