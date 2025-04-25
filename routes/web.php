@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/contacts', [ContactAdminController::class, 'index'])->name('contacts.index');
+    Route::delete('/contacts/{contact}', [ContactAdminController::class, 'destroy'])->name('contacts.destroy');
 });
 
 require __DIR__ . '/auth.php';

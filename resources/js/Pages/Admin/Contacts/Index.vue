@@ -1,12 +1,37 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
+import { ref } from "vue";
+import Input from "@/Components/TextInput.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 
-defineProps({ contacts: Array });
+const props = defineProps({ contacts: Object, filters: Object });
+
+const search = ref(props.filters.search || "");
+
+const searchContacts = () => {
+    router.get(
+        route("admin.contacts.index"),
+        { search: search.value },
+        {
+            preserveState: true,
+            preserveScroll: true,
+        }
+    );
+};
+
+const deleteContact = (id) => {
+    if (confirm("Opravdu chcete tuto zprávu smazat?")) {
+        router.delete(route("admin.contacts.destroy", id), {
+            preserveScroll: true,
+        });
+    }
+};
 </script>
 
 <template>
-    <Head title="Administrace - Kontakty" />
+    <Head title="Zprávy" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -19,7 +44,24 @@ defineProps({ contacts: Array });
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white">
-                        <div v-if="contacts.length === 0" class="text-gray-600">
+                        <!-- SEARCH FORM -->
+                        <div class="flex items-center gap-2 mb-6">
+                            <Input
+                                v-model="search"
+                                type="text"
+                                class="w-64"
+                                placeholder="Hledat..."
+                            />
+                            <PrimaryButton @click="searchContacts">
+                                Hledat
+                            </PrimaryButton>
+                        </div>
+
+                        <!-- CONTACTS TABLE -->
+                        <div
+                            v-if="contacts.data.length === 0"
+                            class="text-gray-600"
+                        >
                             Žádné zprávy.
                         </div>
 
@@ -47,11 +89,12 @@ defineProps({ contacts: Array });
                                         >
                                             Datum
                                         </th>
+                                        <th class="px-6 py-3"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="contact in contacts"
+                                        v-for="contact in contacts.data"
                                         :key="contact.id"
                                         class="border-b"
                                     >
@@ -71,9 +114,42 @@ defineProps({ contacts: Array });
                                                 ).toLocaleString("cs-CZ")
                                             }}
                                         </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <DangerButton
+                                                @click="
+                                                    deleteContact(contact.id)
+                                                "
+                                            >
+                                                Smazat
+                                            </DangerButton>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <!-- PAGINATION -->
+                            <div class="flex justify-center mt-6 space-x-2">
+                                <template
+                                    v-for="(link, index) in contacts.links"
+                                    :key="index"
+                                >
+                                    <button
+                                        v-if="link.url"
+                                        @click="
+                                            router.visit(link.url, {
+                                                preserveState: true,
+                                                preserveScroll: true,
+                                            })
+                                        "
+                                        class="px-3 py-1 text-sm border rounded"
+                                        :class="{
+                                            'bg-indigo-500 text-white':
+                                                link.active,
+                                        }"
+                                        v-html="link.label"
+                                    ></button>
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </div>
