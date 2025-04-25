@@ -3,6 +3,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
 import { watch } from "vue";
+import Footer from "@/Components/Footer.vue";
 
 const page = usePage();
 
@@ -40,6 +41,7 @@ watch(
                     Administrace
                 </Link>
             </div>
+            <Footer />
         </div>
     </div>
 </template>
