@@ -22,7 +22,7 @@ Postaveno na nejnovějším **Laravel 12**, **Inertia.js**, **Vue 3** a **Tailwi
 -   PHP 8.3+
 -   Composer 2+
 -   Node.js v20.18.0 + npm
--   MySQL (nejnovější verze)
+-   MySQL 8
 -   Docker a Docker Compose (volitelně)
 
 ---
