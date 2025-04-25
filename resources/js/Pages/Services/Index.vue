@@ -1,8 +1,11 @@
 <script setup>
+import { Head } from "@inertiajs/vue3";
+
 defineProps({ services: Array });
 </script>
 
 <template>
+    <Head title="Our Services" />
     <div>
         <h1 class="mb-6 text-3xl font-bold">Our Services</h1>
         <ul>

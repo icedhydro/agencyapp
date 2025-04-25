@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,8 +16,13 @@ use Inertia\Inertia;
     ]);
 }); */
 
+// Service routes
 Route::get('/', [ServiceController::class, 'index'])->name('home');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+// Contact form routes
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
