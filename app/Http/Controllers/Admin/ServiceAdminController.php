@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ServiceAdminController extends Controller
@@ -27,13 +28,19 @@ class ServiceAdminController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:services,slug'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:services,slug'],
             'description' => ['nullable', 'string'],
         ]);
 
+        // if empty, generate slug from title
+        if (empty($validated['slug'])) {
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
         Service::create($validated);
 
-        return redirect()->route('admin.services.index')->with('success', 'Služba byla vytvořena.');
+        return redirect()->route('admin.services.index')
+            ->with('success', 'Služba byla úspěšně vytvořena.');
     }
 
     public function edit(Service $service)
@@ -47,19 +54,26 @@ class ServiceAdminController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:services,slug,' . $service->id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:services,slug,' . $service->id],
             'description' => ['nullable', 'string'],
         ]);
 
+        // if empty, generate slug from title
+        if (empty($validated['slug'])) {
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
         $service->update($validated);
 
-        return redirect()->route('admin.services.index')->with('success', 'Služba byla aktualizována.');
+        return redirect()->route('admin.services.index')
+            ->with('success', 'Služba byla úspěšně aktualizována.');
     }
 
     public function destroy(Service $service)
     {
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', 'Služba byla odstraněna.');
+        return redirect()->route('admin.services.index')
+            ->with('success', 'Služba byla úspěšně odstraněna.');
     }
 }
