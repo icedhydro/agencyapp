@@ -2,26 +2,35 @@
 import { Head } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 
-defineOptions({
-    layout: GuestLayout,
-});
-
 defineProps({ services: Array });
 </script>
 
 <template>
     <Head title="Služby" />
-    <div>
-        <h1 class="mb-6 text-3xl font-bold">Služby</h1>
-        <ul>
-            <li v-for="service in services" :key="service.id" class="mb-4">
-                <a
-                    :href="route('services.show', service.slug)"
-                    class="text-blue-600 hover:underline"
-                >
-                    {{ service.title }}
-                </a>
-            </li>
-        </ul>
-    </div>
+
+    <GuestLayout>
+        <template #default>
+            <div class="max-w-3xl mx-auto">
+                <h1 class="mb-8 text-3xl font-bold text-center">Naše služby</h1>
+
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div
+                        v-for="service in services"
+                        :key="service.id"
+                        class="p-6 transition-all duration-200 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg"
+                    >
+                        <h2 class="mb-2 text-xl font-semibold text-gray-800">
+                            {{ service.title }}
+                        </h2>
+                        <a
+                            :href="route('services.show', service.slug)"
+                            class="inline-block mt-4 text-sm font-medium text-blue-600 hover:underline"
+                        >
+                            Zobrazit více →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </GuestLayout>
 </template>

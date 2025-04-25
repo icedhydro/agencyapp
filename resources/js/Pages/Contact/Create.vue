@@ -1,6 +1,10 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineOptions({
     layout: GuestLayout,
@@ -23,58 +27,48 @@ const submit = () => {
     <Head title="Kontakt" />
     <div class="max-w-xl mx-auto">
         <h1 class="mb-4 text-3xl font-bold">Kontaktujte nás</h1>
-        <!-- 
-        <div
-            v-if="$page.props.flash.success"
-            class="p-4 mb-4 text-green-700 bg-green-200 rounded"
-        >
-            {{ $page.props.flash.success }}
-        </div> -->
 
-        <form @submit.prevent="submit">
-            <div class="mb-4">
-                <label class="block">First Name</label>
-                <input
+        <form @submit.prevent="submit" class="space-y-6">
+            <div>
+                <InputLabel for="first_name" value="Jméno" />
+                <TextInput
+                    id="first_name"
                     v-model="form.first_name"
                     type="text"
-                    class="w-full p-2 border rounded"
+                    class="block w-full mt-1"
+                    autocomplete="given-name"
                 />
-                <div v-if="form.errors.first_name" class="text-red-500">
-                    {{ form.errors.first_name }}
-                </div>
+                <InputError :message="form.errors.first_name" class="mt-2" />
             </div>
 
-            <div class="mb-4">
-                <label class="block">Last Name</label>
-                <input
+            <div>
+                <InputLabel for="last_name" value="Příjmení" />
+                <TextInput
+                    id="last_name"
                     v-model="form.last_name"
                     type="text"
-                    class="w-full p-2 border rounded"
+                    class="block w-full mt-1"
+                    autocomplete="family-name"
                 />
-                <div v-if="form.errors.last_name" class="text-red-500">
-                    {{ form.errors.last_name }}
-                </div>
+                <InputError :message="form.errors.last_name" class="mt-2" />
             </div>
 
-            <div class="mb-4">
-                <label class="block">Message</label>
+            <div>
+                <InputLabel for="message" value="Zpráva" />
                 <textarea
+                    id="message"
                     v-model="form.message"
                     rows="5"
-                    class="w-full p-2 border rounded"
+                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 ></textarea>
-                <div v-if="form.errors.message" class="text-red-500">
-                    {{ form.errors.message }}
-                </div>
+                <InputError :message="form.errors.message" class="mt-2" />
             </div>
 
-            <button
-                type="submit"
-                :disabled="form.processing"
-                class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-            >
-                Send Message
-            </button>
+            <div class="flex justify-end">
+                <PrimaryButton :disabled="form.processing">
+                    Odeslat zprávu
+                </PrimaryButton>
+            </div>
         </form>
     </div>
 </template>

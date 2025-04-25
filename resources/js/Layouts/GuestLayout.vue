@@ -3,6 +3,8 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
 import { watch } from "vue";
+import NavLink from "@/Components/NavLink.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Footer from "@/Components/Footer.vue";
 
 const page = usePage();
@@ -23,25 +25,50 @@ watch(
 </script>
 
 <template>
-    <div
-        class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0"
-    >
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="w-20 h-20 text-gray-500 fill-current" />
-            </Link>
-        </div>
-
-        <div
-            class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg"
-        >
-            <slot />
-            <div class="mt-6">
-                <Link href="/dashboard" class="text-blue-500 hover:underline">
-                    Administrace
+    <div class="flex flex-col min-h-screen bg-gray-100">
+        <!-- Logo + Top Navigation -->
+        <header class="bg-white shadow-sm">
+            <div
+                class="flex items-center justify-between max-w-4xl px-6 py-4 mx-auto"
+            >
+                <Link href="/">
+                    <ApplicationLogo
+                        class="w-12 h-12 text-gray-600 fill-current"
+                    />
                 </Link>
+
+                <nav class="space-x-4">
+                    <NavLink
+                        :href="route('home')"
+                        :active="route().current('home')"
+                    >
+                        Služby
+                    </NavLink>
+
+                    <NavLink
+                        :href="route('contact.create')"
+                        :active="route().current('contact.create')"
+                    >
+                        Kontakt
+                    </NavLink>
+
+                    <NavLink
+                        :href="route('dashboard')"
+                        :active="route().current('dashboard')"
+                    >
+                        Administrace
+                    </NavLink>
+                </nav>
             </div>
-            <Footer />
-        </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="flex flex-col items-center flex-grow px-6 py-8">
+            <div class="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md">
+                <slot />
+            </div>
+        </main>
+
+        <Footer />
     </div>
 </template>
