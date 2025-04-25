@@ -15,10 +15,9 @@ defineProps({ service: Object });
                     {{ service.title }}
                 </h1>
 
-                <p class="text-gray-600">
-                    Detail této služby zatím neobsahuje více informací.
-                </p>
-
+                <div class="leading-relaxed text-gray-700">
+                    {{ service.description || "Popis není k dispozici." }}
+                </div>
                 <div class="mt-6">
                     <a
                         :href="route('home')"
