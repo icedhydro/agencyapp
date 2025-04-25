@@ -53,6 +53,14 @@ watch(
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    :href="route('admin.contacts.index')"
+                                    :active="
+                                        route().current('admin.contacts.index')
+                                    "
+                                >
+                                    Zprávy
+                                </NavLink>
                             </div>
                         </div>
 
@@ -88,14 +96,14 @@ watch(
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            Profil
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            Odhlásit se
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -160,6 +168,12 @@ watch(
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('admin.contacts.index')"
+                            :active="route().current('admin.contacts.index')"
+                        >
+                            Zprávay
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -175,14 +189,14 @@ watch(
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                Profil
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Log Out
+                                Odhlásit se
                             </ResponsiveNavLink>
                         </div>
                     </div>

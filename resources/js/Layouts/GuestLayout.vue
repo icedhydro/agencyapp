@@ -35,6 +35,11 @@ watch(
             class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg"
         >
             <slot />
+            <div class="mt-6">
+                <Link href="/dashboard" class="text-blue-500 hover:underline">
+                    Administrace
+                </Link>
+            </div>
         </div>
     </div>
 </template>

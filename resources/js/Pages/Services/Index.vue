@@ -10,9 +10,9 @@ defineProps({ services: Array });
 </script>
 
 <template>
-    <Head title="Our Services" />
+    <Head title="Služby" />
     <div>
-        <h1 class="mb-6 text-3xl font-bold">Our Services</h1>
+        <h1 class="mb-6 text-3xl font-bold">Služby</h1>
         <ul>
             <li v-for="service in services" :key="service.id" class="mb-4">
                 <a

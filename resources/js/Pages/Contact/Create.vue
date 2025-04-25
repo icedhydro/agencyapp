@@ -20,9 +20,9 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Contact" />
+    <Head title="Kontakt" />
     <div class="max-w-xl mx-auto">
-        <h1 class="mb-4 text-3xl font-bold">Contact Us</h1>
+        <h1 class="mb-4 text-3xl font-bold">Kontaktujte nás</h1>
         <!-- 
         <div
             v-if="$page.props.flash.success"
