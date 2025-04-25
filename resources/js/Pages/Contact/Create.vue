@@ -1,5 +1,10 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+
+defineOptions({
+    layout: GuestLayout,
+});
 
 const form = useForm({
     first_name: "",
@@ -18,13 +23,13 @@ const submit = () => {
     <Head title="Contact" />
     <div class="max-w-xl mx-auto">
         <h1 class="mb-4 text-3xl font-bold">Contact Us</h1>
-
+        <!-- 
         <div
             v-if="$page.props.flash.success"
             class="p-4 mb-4 text-green-700 bg-green-200 rounded"
         >
             {{ $page.props.flash.success }}
-        </div>
+        </div> -->
 
         <form @submit.prevent="submit">
             <div class="mb-4">

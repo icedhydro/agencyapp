@@ -1,5 +1,10 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+
+defineOptions({
+    layout: GuestLayout,
+});
 
 defineProps({ services: Array });
 </script>
