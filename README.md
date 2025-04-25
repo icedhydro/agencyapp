@@ -1,61 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikace pro správu služeb (Laravel 12 + Inertia.js + Vue 3)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Moderní webová aplikace pro správu služeb a přijatých zpráv.  
+Postaveno na nejnovějším **Laravel 12**, **Inertia.js**, **Vue 3** a **Tailwind CSS**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Funkce
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Veřejná část webu zobrazující seznam služeb
+-   Kontaktní formulář s validací a flash notifikacemi
+-   Administrace (pouze pro přihlášené) s možností:
+    -   Správy přijatých zpráv (vyhledávání, stránkování, mazání)
+    -   Správy služeb (vytváření, úprava, mazání)
+-   Přehledné UI postavené na Tailwind CSS
+-   Flash notifikace pomocí Vue3 Toastify
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Požadavky
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   PHP 8.3+
+-   Composer 2+
+-   Node.js v20.18.0 + npm
+-   MySQL (nejnovější verze)
+-   Docker a Docker Compose (volitelně)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Lokální instalace
 
-## Laravel Sponsors
+```bash
+# 1. Naklonování repozitáře
+git clone https://github.com/icedhydro/agencyapp.git
+cd agencyapp
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# 2. Instalace PHP závislostí
+composer install
 
-### Premium Partners
+# 3. Instalace Node.js závislostí
+npm install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+# 4. Kopírování souboru prostředí a generování klíče
+cp .env.example .env
+php artisan key:generate
 
-## Contributing
+# 5. Migrace databáze
+php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 6. Sestavení frontendu
+npm run build
 
-## Code of Conduct
+# 7. Spuštění lokálního serveru
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🐳 Instalace a spuštění pomocí Docker Compose
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1. Naklonování repozitáře
 
-## License
+```bash
+git clone https://github.com/icedhydro/agencyapp.git
+cd agencyapp
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 2. Vytvoření prostředí a konfigurace
+
+```bash
+cp .env.example .env
+```
+
+Uprav `.env` soubor (zejména nastavení DB přístupu):
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=password
+```
+
+### 3. Spuštění aplikace pomocí Docker Compose
+
+```bash
+docker-compose up -d --build
+```
+
+Tímto se spustí:
+
+-   PHP 8.3 s Laravelem
+-   MySQL databáze
+-   Node.js/Vite development server
+
+### 4. Nastavení aplikace uvnitř kontejneru
+
+Přihlaste se do PHP kontejneru:
+
+```bash
+docker-compose exec app bash
+
+# Instalace závislostí (pokud ještě nebyly)
+composer install
+npm install
+
+# Generování klíče
+php artisan key:generate
+
+# Migrace databáze
+php artisan migrate
+
+# Build frontendu
+npm run build
+```
+
+---
+
+## 🌍 URL aplikace
+
+Po ústěšném spuštění:
+
+-   Web aplikace: [http://localhost](http://localhost)
+-   PHPMyAdmin (pokud použijete image): [http://localhost:8080](http://localhost:8080)
+
+---
+
+## 🚀 Technologie
+
+-   Laravel 12
+-   Vue.js 3 + Inertia.js
+-   Tailwind CSS
+-   Vite
+-   MySQL
+-   Docker Compose
+
+---
+
+## 💡 Tipy pro nasazení (production)
+
+-   Používejte "npm run build" (production assets)
+-   Nastavte APP_ENV na "production"
+-   Zapněte cache konfigurace:
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+---
+
+Michal Bednařík 2025
